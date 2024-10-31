@@ -101,7 +101,7 @@ Your goal is to solve the mystery by gathering clues, analyzing evidence, and in
 - Review Clues: Keep track of collected clues to guide your deductions.
 - Make an Accusation: When you feel confident, accuse the culprit and see if you’re correct!
 
-Extra Points
+## Extra Points
 This game also includes features for extra credit:
 
 - Save Functionality: Resume the game from a saved state.

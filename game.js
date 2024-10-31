@@ -17,7 +17,7 @@ let suspects = [
 ];
 
 // Function to start the game
-function startGame() {
+export function startGame() {
   console.log("Welcome to Psych Detective!");
   rl.question("What is your name, detective? ", (name) => {
     playerName = name;
@@ -120,4 +120,4 @@ function makeAccusation() {
   });
 }
 
-export default { startGame };
+
