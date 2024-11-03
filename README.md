@@ -107,6 +107,7 @@ This game also includes features for extra credit:
 - Save Functionality: Resume the game from a saved state.
 - ASCII Art: Adds a creative touch to certain scenes.
 - Randomized Clues: Some clues may vary each game, adding replay value.
+- Timer: You have 5 minutes to finish the game! 
 
 ## Contributing
 

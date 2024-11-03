@@ -1,24 +1,36 @@
 // game.js
-import * as readline from "readline";
 
-// Create readline interface for user input
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+import { welcomeArt } from "./ASCIIArt.js";
+import { rl, suspects, locations, allClues } from "./initialGameState.js";
 
-// Game state
+// Initial game
 let playerName;
-let clues = [];
-let suspects = [
-  { name: "Mr. Green", alibi: "Claims to have been at a restaurant." },
-  { name: "Ms. Scarlet", alibi: "Says she was at the library." },
-  { name: "Prof. Plum", alibi: "Claims to have been at home alone." },
-];
+export let cluesFound = [];
+export let visitedLocations = new Set();
+
+// Function to assign a random culprit
+function assignRandomCulprit() {
+  const randomIndex = Math.floor(Math.random() * suspects.length);
+  return suspects[randomIndex];
+}
+
+let actualCulprit = assignRandomCulprit();
+console.log(actualCulprit);
+
+
+// Randomize clues each game, separating true leads and red herrings
+function getRandomClues(numClues) {
+  const shuffledClues = allClues.sort(() => 0.5 - Math.random());
+  return shuffledClues.slice(0, numClues);
+}
+
+// Usage Example
+const selectedClues = getRandomClues(10); // Get 10 random clues for this game.
+console.log(selectedClues);
 
 // Function to start the game
 export function startGame() {
-  console.log("Welcome to Psych Detective!");
+  console.log(welcomeArt);
   rl.question("What is your name, detective? ", (name) => {
     playerName = name;
     console.log(`Alright, Detective ${playerName}, let's get to work!`);
@@ -27,43 +39,59 @@ export function startGame() {
 }
 
 // Main menu function
-function mainMenu() {
-  console.log("\nWhat would you like to do?");
-  console.log("1. Investigate a location");
-  console.log("2. Question a suspect");
-  console.log("3. Review clues");
-  console.log("4. Make an accusation");
-  rl.question("Choose an option: ", (choice) => {
-    switch (choice) {
-      case "1":
-        investigateLocation();
-        break;
-      case "2":
-        questionSuspect();
-        break;
-      case "3":
-        reviewClues();
-        break;
-      case "4":
-        makeAccusation();
-        break;
-      default:
-        console.log("Invalid choice, try again.");
-        mainMenu();
-    }
+export function mainMenu() {
+  rl.question("Click any button to view the main menu ", () => {
+    console.log("\nWhat would you like to do?");
+    console.log("1. Investigate a location");
+    console.log("2. Question a suspect");
+    console.log("3. Review the clues found so far");
+    console.log("4. Make an accusation");
+    rl.question("Choose an option: ", (choice) => {
+      switch (choice) {
+        case "1":
+          investigateLocation();
+          break;
+        case "2":
+          questionSuspect();
+          break;
+        case "3":
+          reviewClues();
+          break;
+        case "4":
+          makeAccusation();
+          break;
+        default:
+          console.log("Invalid choice, try again.");
+          mainMenu();
+      }
+    });
   });
 }
 
 // Investigate a location
 function investigateLocation() {
-  console.log("\nYou arrive at the crime scene.");
-  const clue = {
-    description: "You find a suspicious note hidden under a table.",
-    value: "A clue indicating a meeting place.",
-  };
-  clues.push(clue);
-  console.log(`Clue found: ${clue.description}`);
-  mainMenu();
+  console.log("\nChoose a location to investigate:");
+  locations.forEach((location, index) => {
+    if (!visitedLocations.has(location)) {
+      console.log(`${index + 1}. ${location}`);
+    }
+  });
+
+  rl.question("Enter the location number: ", (choice) => {
+    const locationIndex = parseInt(choice) - 1;
+    const location = locations[locationIndex];
+    if (location && !visitedLocations.has(location)) {
+      console.log(`\nYou investigate the ${location}.`);
+      visitedLocations.add(location);
+      const locationClues = allClues.filter(clue => clue.location === location);
+      const randomClue = locationClues[Math.floor(Math.random() * locationClues.length)];
+      cluesFound.push(randomClue);
+      console.log(`Clue found: ${randomClue.description}`);
+    } else {
+      console.log("Invalid choice or location already investigated.");
+    }
+    mainMenu();
+  });
 }
 
 // Question a suspect
@@ -78,7 +106,7 @@ function questionSuspect() {
       const suspect = suspects[suspectIndex];
       console.log(`\nQuestioning ${suspect.name}...`);
       console.log(`Alibi: ${suspect.alibi}`);
-      clues.push({ description: `Interviewed ${suspect.name}`, value: suspect.alibi });
+      cluesFound.push({ description: `Interviewed ${suspect.name}`, value: suspect.alibi });
     } else {
       console.log("Invalid choice, try again.");
     }
@@ -86,13 +114,13 @@ function questionSuspect() {
   });
 }
 
-// Review clues
+// Review cluesFound
 function reviewClues() {
   console.log("\nClues gathered so far:");
-  if (clues.length === 0) {
-    console.log("No clues yet.");
+  if (cluesFound.length === 0) {
+    console.log("No clues found yet.");
   } else {
-    clues.forEach((clue, index) => {
+    cluesFound.forEach((clue, index) => {
       console.log(`${index + 1}. ${clue.description} - ${clue.value}`);
     });
   }
@@ -105,19 +133,25 @@ function makeAccusation() {
   suspects.forEach((suspect, index) => {
     console.log(`${index + 1}. ${suspect.name}`);
   });
+
   rl.question("Enter the suspect number: ", (choice) => {
     const suspectIndex = parseInt(choice) - 1;
+
     if (suspects[suspectIndex]) {
       const accused = suspects[suspectIndex];
       console.log(`\nYou accuse ${accused.name}!`);
-      // End the game (for now) with a placeholder outcome
-      console.log("To be continued... (Implement case resolution logic)");
+
+      // Check if the accusation is correct
+      if (accused === actualCulprit && cluesFound.length >= 3) {
+        console.log("\nCongratulations! You’ve solved the case. Justice is served.");
+      } else {
+        console.log(`\nWrong accusation! ${accused.name} is innocent, and the real culprit escaped.`);
+      }
+
       rl.close();
     } else {
-      console.log("Invalid choice, try again.");
+      console.log("Invalid choice, try again. \n");
       mainMenu();
     }
   });
 }
-
-
