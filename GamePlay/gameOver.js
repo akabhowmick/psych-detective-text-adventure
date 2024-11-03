@@ -1,4 +1,5 @@
 import { rl } from "../initialGameState.js";
+import { playerName } from "./game.js";
 
 export function gameOver(outcome) {
   switch (outcome) {
@@ -18,6 +19,7 @@ export function gameOver(outcome) {
       break;
 
     case "quit":
+      console.log(`Goodbye, Detective ${playerName}!`);
       console.log("\nGame terminated by the player.");
       break;
 
