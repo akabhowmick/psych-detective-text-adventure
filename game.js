@@ -7,12 +7,14 @@ import { investigateLocation } from "./GamePlay/investigateLocations.js";
 import { reviewClues } from "./GamePlay/reviewClues.js";
 import { questionSuspect } from "./GamePlay/questionSuspect.js";
 import { gameOver } from "./GamePlay/gameOver.js";
+import { startTimer } from "./GamePlay/timer.js";
 
 export let playerName;
 
 // game variables => these will be updated throughout the course of the game
 export let cluesFound = [];
 export let visitedLocations = new Set();
+export const timeLimit = 5 * 60; // 5 minutes in seconds
 
 // Function to assign a random culprit on each game play to have REPLAY VALUE!
 function assignRandomCulprit() {
@@ -36,7 +38,10 @@ export function startGame() {
   console.log(welcomeArt);
   rl.question("What is your name, detective? ", (name) => {
     playerName = name;
-    console.log(`Alright, Detective ${playerName}, let's get to work!`);
+    console.log(
+      `Alright, Detective ${playerName}, let's get to work! You only have 5 minutes to solve this murder mystery!!`
+    );
+    startTimer(timeLimit);
     mainMenu();
   });
 }

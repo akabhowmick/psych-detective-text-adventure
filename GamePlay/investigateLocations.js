@@ -3,6 +3,8 @@ import { mainMenu, visitedLocations, cluesFound } from "../game.js";
 
 export function investigateLocation() {
   console.log("\nChoose a location to investigate:");
+
+  // only do this if there are no clues linked to this location that are not yet found 
   locations.forEach((location, index) => {
     if (!visitedLocations.has(location)) {
       console.log(`${index + 1}. ${location}`);

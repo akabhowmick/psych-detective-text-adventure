@@ -6,7 +6,9 @@ export function reviewClues() {
     console.log("No clues found yet.");
   } else {
     cluesFound.forEach((clue, index) => {
-      console.log(`${index + 1}. ${clue.description} - ${clue.value}`);
+      console.log(
+        `${index + 1}. ${clue.description} - ${clue.value} - (clue linked to ${clue.linkedTo})`
+      );
     });
   }
   mainMenu();

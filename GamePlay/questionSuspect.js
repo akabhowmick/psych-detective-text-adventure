@@ -12,7 +12,11 @@ export function questionSuspect() {
       const suspect = suspects[suspectIndex];
       console.log(`\nQuestioning ${suspect.name}...`);
       console.log(`Alibi: ${suspect.alibi}`);
-      cluesFound.push({ description: `Interviewed ${suspect.name}`, value: suspect.alibi });
+      cluesFound.push({
+        description: `Interviewed ${suspect.name}`,
+        value: suspect.alibi,
+        linkedTo: suspect.name,
+      });
     } else {
       console.log("Invalid choice, try again.");
     }

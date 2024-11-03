@@ -1,7 +1,6 @@
 import { rl } from "../initialGameState.js";
 
 let timer; // Timer variable
-export const timeLimit = 5 * 60; // 5 minutes in seconds
 
 // Timer function
 export function startTimer(seconds) {
@@ -11,7 +10,11 @@ export function startTimer(seconds) {
     const minutes = Math.floor(remainingTime / 60);
     const seconds = remainingTime % 60;
     const display = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-    console.log(`Time remaining: ${display}`);
+
+    // Display remaining time every 5 seconds
+    if(remainingTime % 5 === 0){
+      console.log(`\nTime remaining: ${display}`);
+    }
 
     if (remainingTime <= 0) {
       clearInterval(timer);

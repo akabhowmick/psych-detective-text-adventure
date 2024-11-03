@@ -1,5 +1,5 @@
 import { rl } from "../initialGameState.js";
-import { playerName } from "./game.js";
+import { playerName } from "../game.js";
 
 export function gameOver(outcome) {
   switch (outcome) {
@@ -10,7 +10,7 @@ export function gameOver(outcome) {
 
     case "lose":
       console.log("\nOh no! The culprit has escaped.");
-      console.log("Better luck next time, Detective.");
+      console.log("Better luck next time, Detective ${playerName}!");
       break;
 
     case "timeout":
@@ -26,6 +26,5 @@ export function gameOver(outcome) {
     default:
       console.log("\nGame over.");
   }
-
-  rl.close(); // Closes the readline interface, ending the game.
+  rl.close();
 }
