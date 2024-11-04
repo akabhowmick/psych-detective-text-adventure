@@ -1,7 +1,7 @@
 // game.js
 
 import { welcomeArt } from "./ASCIIArt.js";
-import { rl, suspects, allClues } from "./initialGameState.js";
+import { rl, suspects, allClues, showStoryAndRules } from "./initialGameState.js";
 import { makeAccusation } from "./GamePlay/makeAccusation.js";
 import { investigateLocation } from "./GamePlay/investigateLocations.js";
 import { reviewClues } from "./GamePlay/reviewClues.js";
@@ -30,12 +30,13 @@ function getRandomClues(numClues) {
   return shuffledClues.slice(0, numClues);
 }
 
-// Get 10 random clues for this game. => so the culprit is different every time but there are enough clues to get to that decision
-const selectedClues = getRandomClues(10);
+// Get 15 random clues for this game. => so the culprit is different every time but there are enough clues to get to that decision
+const selectedClues = getRandomClues(15);
 console.log(selectedClues);
 
 export function startGame() {
   console.log(welcomeArt);
+  showStoryAndRules();
   rl.question("What is your name, detective? ", (name) => {
     playerName = name;
     console.log(

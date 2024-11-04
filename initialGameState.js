@@ -216,3 +216,37 @@ export const allClues = [
     linkedTo: "Mrs. White",
   },
 ];
+
+export function showStoryAndRules() {
+  console.log(`
+    ╔══════════════════════════════════════════════════════════════════╗
+    ║                           MURDER MYSTERY                         ║
+    ╠══════════════════════════════════════════════════════════════════╣
+    ║ A murder has occurred in a grand mansion, and the suspects have  ║
+    ║ gathered in the main hall. As a detective you have been called   ║
+    ║ in to solve the case before the culprit escapes into the night.  ║
+    ║                                                                  ║
+    ║                                                                  ║
+    ║ Your mission is to:                                              ║
+    ║ 1. Investigate various locations for clues.                      ║ 
+    ║ 2. Question each of the suspects to piece together their alibis. ║
+    ║ 3. Analyze clues and make deductions to narrow down the killer.  ║
+    ║                                                                  ║
+    ║ But be careful! You only have 5 minutes to solve the mystery.    ║
+    ║ After the time runs out, the suspect will flee, and the case     ║
+    ║ will go cold.                                                    ║
+    ║                                                                  ║
+    ║ Rules:                                                           ║
+    ║ - Each location you investigate may contain clues linked to      ║
+    ║   different suspects.                                            ║
+    ║ - You can question suspects about their whereabouts, but they    ║
+    ║   may not always be truthful.                                    ║
+    ║ - Review your clues carefully. Each clue could point towards or  ║
+    ║   eliminate a suspect.                                           ║
+    ║ - When you feel confident, you can make an accusation. But       ║
+    ║   beware, a wrong accusation will end the case.                  ║
+    ║                                                                  ║
+    ║ Good luck, Detective. The clock is ticking!                      ║
+    ╚══════════════════════════════════════════════════════════════════╝
+  `);
+}

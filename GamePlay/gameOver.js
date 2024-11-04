@@ -1,7 +1,9 @@
 import { rl } from "../initialGameState.js";
 import { playerName } from "../game.js";
+import { stopTimer } from "./timer.js";
 
 export function gameOver(outcome) {
+  stopTimer();
   switch (outcome) {
     case "win":
       console.log("\nCongratulations, Detective! You correctly identified the culprit!");

@@ -1,4 +1,5 @@
 import { rl } from "../initialGameState.js";
+import { gameOver } from "./gameOver.js";
 
 let timer; // Timer variable
 
@@ -12,16 +13,20 @@ export function startTimer(seconds) {
     const display = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 
     // Display remaining time every 5 seconds
-    if(remainingTime % 5 === 0){
+    if (remainingTime % 5 === 0) {
       console.log(`\nTime remaining: ${display}`);
     }
 
     if (remainingTime <= 0) {
-      clearInterval(timer);
-      console.log("\nTime's up! The case remains unsolved.");
       rl.close();
+      gameOver();
     }
 
     remainingTime--;
   }, 1000);
+}
+
+export function stopTimer() {
+  rl.close();
+  clearInterval(timer);
 }
