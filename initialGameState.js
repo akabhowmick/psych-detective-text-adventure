@@ -217,10 +217,11 @@ export const allClues = [
   },
 ];
 
+// Show the rules and story
 export function showStoryAndRules() {
   console.log(`
     ╔══════════════════════════════════════════════════════════════════╗
-    ║                           MURDER MYSTERY                         ║
+    ║                         PSYCH MURDER MYSTERY                     ║
     ╠══════════════════════════════════════════════════════════════════╣
     ║ A murder has occurred in a grand mansion, and the suspects have  ║
     ║ gathered in the main hall. As a detective you have been called   ║
