@@ -22,16 +22,16 @@ export function makeAccusation() {
 
     console.log(`\nYou accuse ${accused.name}!`);
 
-    // Check if enough clues have been gathered
-    if (cluesIndicatingAccused.length < 2) {
-      console.log("You don’t have enough evidence to support that accusation yet!\n");
-      return mainMenu();
-    }
-
     // Determine outcome based on accusation
     if (accused.name === actualCulprit) {
-      console.log(`Congratulations! You correctly identified the culprit as ${accused.name}.`);
-      gameOver("win");
+      // Check if enough clues have been gathered
+      if (cluesIndicatingAccused.length < 2) {
+        console.log("You don’t have enough evidence to support that accusation yet!\n");
+        return mainMenu();
+      } else {
+        console.log(`Congratulations! You correctly identified the culprit as ${accused.name}.`);
+        gameOver("win");
+      }
     } else {
       console.log(`Unfortunately, ${accused.name} is not the culprit.`);
       gameOver("lose");
