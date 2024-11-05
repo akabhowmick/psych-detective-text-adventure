@@ -70,13 +70,13 @@ export const cluesRelatedToCulprit = selectedClues.filter(
 );
 
 // ! Helpful in debugging to check that the culprit is determined based on the randomly chosen clues
-console.log(`selected clues to determine the culprit: }`);
-console.log(selectedClues);
-console.log("the culprit is " + actualCulprit);
-cluesGroupedByLocation.forEach((cluesSet, location) => {
-  console.log(`Location: ${location}`);
-  cluesSet.forEach((clue) => console.log(`  - ${clue.description}`));
-});
+// console.log(`selected clues to determine the culprit: }`);
+// console.log(selectedClues);
+// console.log("the culprit is " + actualCulprit);
+// cluesGroupedByLocation.forEach((cluesSet, location) => {
+//   console.log(`Location: ${location}`);
+//   cluesSet.forEach((clue) => console.log(`  - ${clue.description}`));
+// });
 
 export function startGame() {
   console.log(welcomeArt);

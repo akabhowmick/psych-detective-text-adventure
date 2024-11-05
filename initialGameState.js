@@ -238,8 +238,8 @@ export const allClues = [
   {
     id: 30,
     location: "Mall",
-    description: "A brochure for a suspicious event that Mr. Green is involved with.",
-    linkedTo: "Mr. Green",
+    description: "A brochure for a suspicious event that Prof. Plum is involved with.",
+    linkedTo: "Prof. Plum",
     type: "clue",
   },
 ];
