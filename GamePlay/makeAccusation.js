@@ -4,6 +4,7 @@ import { gameOver } from "./gameOver.js";
 
 export function makeAccusation() {
   console.log("\nWho do you think committed the crime?");
+
   suspects.forEach((suspect, index) => {
     console.log(`${index + 1}. ${suspect.name}`);
   });
@@ -11,25 +12,29 @@ export function makeAccusation() {
   rl.question("Enter the suspect number: ", (choice) => {
     const suspectIndex = parseInt(choice) - 1;
 
-    if (suspects[suspectIndex]) {
-      const accused = suspects[suspectIndex];
-      const cluesIndicatingAccused = cluesFound.filter((clue) => clue.linkedTo === accused.name);
-      console.log(`\nYou accuse ${accused.name}!`);
+    if (isNaN(suspectIndex) || suspectIndex < 0 || suspectIndex >= suspects.length) {
+      console.log("Invalid choice, try again.\n");
+      return mainMenu();
+    }
 
-      // To avoid correctly guessing the suspect, the user must at least encounter 2 clues that link the crime to the suspect
-      if (cluesIndicatingAccused <= 2) {
-        console.log(`You don't have enough information to make that accusation yet!\n`);
-        mainMenu();
-      } else {
-        if (accused === actualCulprit) {
-          gameOver("win");
-        } else {
-          gameOver("lose");
-        }
-      }
+    const accused = suspects[suspectIndex];
+    const cluesIndicatingAccused = cluesFound.filter((clue) => clue.linkedTo === accused.name);
+
+    console.log(`\nYou accuse ${accused.name}!`);
+
+    // Check if enough clues have been gathered
+    if (cluesIndicatingAccused.length < 2) {
+      console.log("You don’t have enough evidence to support that accusation yet!\n");
+      return mainMenu();
+    }
+
+    // Determine outcome based on accusation
+    if (accused.name === actualCulprit) {
+      console.log(`Congratulations! You correctly identified the culprit as ${accused.name}.`);
+      gameOver("win");
     } else {
-      console.log("Invalid choice, try again. \n");
-      mainMenu();
+      console.log(`Unfortunately, ${accused.name} is not the culprit.`);
+      gameOver("lose");
     }
   });
 }

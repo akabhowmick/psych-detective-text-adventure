@@ -47,7 +47,7 @@ export function gameOver(outcome) {
         ███████╗╚██████╔╝███████║   ██║   
         ╚══════╝ ╚═════╝ ╚══════╝   ╚═╝   `);
       console.log("\nOh no! The culprit has escaped.");
-      console.log("Better luck next time, Detective ${playerName}!");
+      console.log(`Better luck next time, Detective ${playerName}!`);
       break;
 
     case "timeout":

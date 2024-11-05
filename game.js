@@ -76,8 +76,8 @@ cluesGroupedByLocation.forEach((cluesSet, location) => {
 });
 
 export function startGame() {
-  // console.log(welcomeArt);
-  // showStoryAndRules();
+  console.log(welcomeArt);
+  showStoryAndRules();
   rl.question("What is your name, detective? ", (name) => {
     playerName = name;
     console.log(
