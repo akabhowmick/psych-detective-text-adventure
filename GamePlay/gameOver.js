@@ -1,5 +1,5 @@
 import { rl } from "../initialGameState.js";
-import { playerName, actualCulprit } from "../game.js";
+import { playerName, actualCulprit, cluesRelatedToCulprit } from "../game.js";
 import { stopTimer } from "./timer.js";
 
 export function gameOver(outcome) {
@@ -35,7 +35,7 @@ export function gameOver(outcome) {
       console.log(
         "Justice has been served, thanks to your keen observation and deduction skills. However, how did you solve it?"
       );
-      psychicRant();
+      psychicRant(cluesRelatedToCulprit);
       break;
 
     case "lose":

@@ -65,6 +65,9 @@ function assignCulpritBasedOnClues(selectedClues) {
 }
 
 export const actualCulprit = assignCulpritBasedOnClues(selectedClues);
+export const cluesRelatedToCulprit = selectedClues.filter(
+  (clue) => clue.linkedTo === actualCulprit
+);
 
 // ! Helpful in debugging to check that the culprit is determined based on the randomly chosen clues
 console.log(`selected clues to determine the culprit: }`);
